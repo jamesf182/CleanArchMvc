@@ -7,7 +7,7 @@ namespace CleanArchMvc.Infra.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        ApplicationDbContext _context;
+        readonly ApplicationDbContext _context;
         public ProductRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -23,7 +23,7 @@ namespace CleanArchMvc.Infra.Data.Repositories
         public async Task<Product> GetByIdAsync(int? id)
         {
             //return _context.Products.Find(id);
-            return await _context.Products.Include(p => p.CategoryId)
+            return await _context.Products.Include(p => p.Category)
                 .SingleOrDefaultAsync(p => p.Id == id);
         }
 
