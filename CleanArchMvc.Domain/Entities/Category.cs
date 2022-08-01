@@ -6,6 +6,8 @@ namespace CleanArchMvc.Domain.Entities
     {
         public string Name { get; private set; }
 
+        public ICollection<Product> Products { get; set; }
+
         public Category(string name)
         {
             ValidateDomain(name);
@@ -21,9 +23,7 @@ namespace CleanArchMvc.Domain.Entities
         public void Update(string name)
         {
             ValidateDomain(name);
-        }
-
-        public ICollection<Product> Products { get; set; }
+        }        
 
         private void ValidateDomain(string name)
         {

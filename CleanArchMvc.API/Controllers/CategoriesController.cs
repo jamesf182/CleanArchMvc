@@ -1,12 +1,13 @@
 ﻿using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchMvc.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -48,7 +49,7 @@ namespace CleanArchMvc.API.Controllers
 
             await _categoryService.Add(categoryDTO);
 
-            return new CreatedAtRouteResult("GetCategory", new { id = categoryDTO.Id }, 
+            return new CreatedAtRouteResult("GetCategory", new { id = categoryDTO.Id },
                 categoryDTO);
         }
 
@@ -74,7 +75,7 @@ namespace CleanArchMvc.API.Controllers
             {
                 return NotFound("Category not found");
             }
-            
+
             await _categoryService.Remove(id);
 
             return Ok(category);
